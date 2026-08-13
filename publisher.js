@@ -8,7 +8,7 @@ client.on("connect", () => {
   console.log("🚀 Sensor de Temperatura Iniciado!");
 
   setInterval(() => {
-    const temperaturaSimulada = (22 + Math.random() * 4).toFixed(1);
+    const temperaturaSimulada = (24 + Math.random() * 4).toFixed(1);
     client.publish("casa/sala/temperatura", `${temperaturaSimulada}°C`);
 
     // LIMPEZA: Apaga o histórico e mostra apenas a última linha
