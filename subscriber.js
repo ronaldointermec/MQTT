@@ -4,12 +4,12 @@ const client = mqtt.connect("mqtt://localhost:1883");
 
 // Variáveis para guardar o ÚLTIMO estado recebido de cada coisa
 let ultimaTemperatura = "Aguardando leitura...";
-let ultimoStatusLampada = "Aguardando comando...";
+let ultimoStatusArCondicionado = "Aguardando comando...";
 
 client.on("connect", () => {
   console.clear();
   console.log("✅ Central Inteligente Conectada!");
-  client.subscribe(["casa/sala/lampada", "casa/sala/temperatura"]);
+  client.subscribe(["casa/sala/ar-condicionado", "casa/sala/temperatura"]);
 });
 
 client.on("message", (topic, message) => {
@@ -22,14 +22,14 @@ client.on("message", (topic, message) => {
     // Lógica de decisão automática
     const temperatura = parseFloat(textoMensagem.replace("°C", ""));
     if (temperatura > 25.0) {
-      client.publish("casa/sala/lampada", "LIGAR (Ar Condicionado)");
+      client.publish("casa/sala/ar-condicionado", "LIGAR (Ar Condicionado)");
     } else {
-      client.publish("casa/sala/lampada", "DESLIGAR (Ar Condicionado)");
+      client.publish("casa/sala/ar-condicionado", "DESLIGAR (Ar Condicionado)");
     }
   }
 
-  if (topic === "casa/sala/lampada") {
-    ultimoStatusLampada = textoMensagem;
+  if (topic === "casa/sala/ar-condicionado") {
+    ultimoStatusArCondicionado = textoMensagem;
   }
 
   // 2. LIMPEZA E DESENHO DO PAINEL
@@ -38,7 +38,7 @@ client.on("message", (topic, message) => {
   console.log("      📊 PAINEL DA CASA INTELIGENTE  ");
   console.log("====================================");
   console.log(`      🌡️  Temperatura Atual: ${ultimaTemperatura}`);
-  console.log(`      💡 Status do Aparelho: ${ultimoStatusLampada}`);
+  console.log(`      💡 Status do Aparelho: ${ultimoStatusArCondicionado}`);
   console.log("====================================");
   console.log(" Aguardando novas atualizações em tempo real...");
 }); // <-- Chaves e parênteses fechados corretamente aqui!
