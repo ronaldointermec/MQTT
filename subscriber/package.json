@@ -1,0 +1,22 @@
+{
+  "name": "mqtt",
+  "version": "1.0.0",
+  "main": "subscriber_rfid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "subscriber:rfid": "nodemon --ext js subscriber_rfid.js",
+    "subscriber:casa": "nodemon --ext js subscriber_casa.js",
+    "build": "pkg subscriber_rfid.js --targets node18-win-x64 --output dist/subscriber_rfid.exe"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mqtt": "^5.15.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "pkg": "^5.8.1"
+  }
+}
