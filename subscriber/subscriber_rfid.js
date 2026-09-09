@@ -53,10 +53,12 @@ client.on("offline", () => {
 
 // Variáveis para guardar o ÚLTIMO estado recebido de cada coisa
 let ultimoRfid = "Nenhuma tag lida...";
-
+let contadorTags = 0; // 🔢 Inicializa o contador global de tags
 client.on("connect", () => {
   console.clear();
-  console.log("✅ Central Inteligente Conectada!");
+  console.log("==========================================================");
+  console.log("      📊 RFID TRANSFER WEDGE");
+  console.log("==========================================================");
   client.subscribe(["rfid/leitura"]);
 });
 
@@ -65,6 +67,7 @@ client.on("message", (topic, message) => {
 
   // Processamento do Tópico do Leitor RFID Android
   if (topic === "rfid/leitura") {
+    contadorTags++;
     try {
       // 1. Converte a string JSON recebida em um objeto JavaScript
       const dadosTag = JSON.parse(textoMensagem);
@@ -72,18 +75,20 @@ client.on("message", (topic, message) => {
       // 3. Formata o payload bruto para JSON "bonitinho" com recuo de 4 espaços
       // O truque do split e join aplica o recuo correto para alinhar no painel do console
       const jsonBonito = JSON.stringify(dadosTag, null, 4);
-      payloadFormatado = jsonBonito.split("\n").join("\n              ");
+      payloadFormatado = jsonBonito.split("\n").join("\n                 ");
     } catch (e) {
       // Caso chegue algo que não seja um JSON válido, exibe o texto bruto como segurança
       ultimoRfid = textoMensagem;
     }
   }
-  // 2. LIMPEZA E DESENHO DO PAINEL
+  // 2. DESENHO DO PAINEL NO CONSOLE (Com o contador adicionado)
   console.clear();
   console.log("==========================================================");
   console.log("      📊 RFID TRANSFER WEDGE");
   console.log("==========================================================");
+  console.log("==========================================================");
+  console.log(`      🔢  Tags Lidas Até o Momento: ${contadorTags}`); // <-- Nova linha do contador
+  console.log("==========================================================");
   console.log(`      🆔  Payload:\n               ${payloadFormatado}`);
-  console.log("====================================");
-  console.log(" Aguardando novas atualizações em tempo real...");
+  console.log("==========================================================");
 }); // <-- Chaves e parênteses fechados corretamente aqui!
