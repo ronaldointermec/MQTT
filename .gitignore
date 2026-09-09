@@ -1,5 +1,6 @@
 # Dependências (Ignora todas as 4 pastas node_modules de uma vez)
 node_modules/
+.vite/
 
 # Produção / Compilação (Ignora as pastas de build do frontend e assinante)
 dist/
