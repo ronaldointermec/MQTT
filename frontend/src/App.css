@@ -1,0 +1,327 @@
+/* --- VARIÁVEIS E ANIMAÇÕES OFICIAIS BRADY --- */
+:root {
+  --brady-blue-primary: #002D72;   /* Pantone 288 C */
+  --brady-blue-secondary: #6CACE4; /* Pantone 284 C */
+  --brady-teal: #4F868E;           /* Pantone 5483 C */
+  --brady-gray: #888B8D;           /* Pantone Cool Gray 8 */
+  --brady-black: #2C2A29;          /* Pantone Process Black C */
+  --status-success: #2ecc71;
+  --status-alert: #ff4757;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sonar {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- RESET DE TELA CHEIA E MOLDURA F11 --- */
+html, body, #root {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: #00183F !important; /* Fundo escuro profundo para a moldura externa */
+  overflow: hidden !important;
+  box-sizing: border-box;
+}
+
+/* Oculta as barras de rolagem nativas do Chrome em todo o app */
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Camada externa que gera o respiro uniforme de 20px */
+.screen-wrapper {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  overflow: hidden;
+}
+
+/* --- CONTAINER PRINCIPAL COM A IMAGEM CORPORATIVA --- */
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-image: url('/brady.jpg') !important;
+  background-size: 100% 100% !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* --- CABEÇALHO TRANSPARENTE --- */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 40px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+}
+.app-header h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+  color: #FFFFFF;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.live-indicator {
+  color: var(--live-color);
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.status-dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  background-color: var(--status-color);
+  box-shadow: 0 0 10px var(--status-color);
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-clear,
+.btn-export {
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn-export {
+  background: var(--brady-blue-primary);
+  border: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.btn-export:hover {
+  filter: brightness(1.2);
+}
+
+/* --- SONAR CONFIGURADO E COMPACTADO --- */
+.sonar-section {
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+.sonar-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(0, 45, 114, 0.85);
+  border: 3px solid #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.sonar-number {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #FFFFFF;
+}
+.sonar-label {
+  font-size: 0.7rem;
+  color: #E0E0E0;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 3px;
+}
+
+.sonar-wave {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  animation: sonar 3s infinite linear;
+}
+
+/* --- GRID DE CARDS --- */
+.grid-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden !important;
+  padding: 15px 20px 100px 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tags-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+/* .tag-card {
+  background: #FFFFFF;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  animation: slideIn 0.4s ease-out forwards;
+  align-items: center;
+} */
+
+.tag-card {
+  background: #FFFFFF;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  animation: slideIn 0.4s ease-out forwards;
+  align-items: stretch; /* Garante que o indicador vertical estique de ponta a ponta na nova altura */
+  min-height: 125px; /* Altura de segurança para abrigar confortavelmente os dados do MQTT */
+  box-sizing: border-box;
+}
+
+.tag-card.latest {
+  border: 2px solid var(--brady-blue-primary);
+  box-shadow: 0 6px 18px rgba(0, 45, 114, 0.25);
+}
+
+.status-indicator {
+  width: 6px;
+  height: 40px;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.product-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--brady-black);
+}
+.tag-count {
+  font-size: 0.7rem;
+  color: var(--brady-gray);
+  font-weight: 800;
+}
+
+.epc-code {
+  font-size: 0.75rem;
+  color: var(--brady-blue-primary);
+  font-family: "JetBrains Mono", monospace;
+  background: #F0F4F8;
+  padding: 6px 8px;
+  border-radius: 4px;
+  margin: 6px 0;
+  border: 1px solid var(--brady-blue-secondary);
+  word-break: break-all;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: var(--brady-gray);
+  align-items: center;
+}
+.status-active {
+  color: var(--brady-teal);
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+/* --- UTILITÁRIOS --- */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  /* CORREÇÃO AQUI: Adicionado prefixo para Safari/iOS */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 45, 114, 0.1);
+  border-top: 4px solid var(--brady-blue-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  background: rgba(0, 45, 114, 0.6);
+  /* CORREÇÃO AQUI: Adicionado prefixo para Safari/iOS */
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
